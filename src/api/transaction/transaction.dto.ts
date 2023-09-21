@@ -1,4 +1,4 @@
-import { IsMongoId, IsNumber, IsString } from "class-validator";
+import { IsDate, IsMongoId, IsNumber, IsString } from "class-validator";
 import { IsExistsInModel } from "../../utils/checkIfExists.validator";
 import { BankAccount as BankAccountModel} from "../bankAccount/bankAccount.model";
 import { TransactionType as TransactionTypeModel } from "../transaction-type/transaction-type.model";
@@ -17,4 +17,20 @@ export class AddTransictionDTO {
 
     @IsString()
 	description: string;
-  }
+}
+
+export class ListFromNumberDTO {
+    @IsNumber()
+    number: number;
+}
+
+export class ListFromDateDTO {
+    @IsNumber()
+    number: number;
+
+    @IsDate()
+    startDate : string;
+
+    @IsDate()
+    endDate : string;
+}
