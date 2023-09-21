@@ -1,3 +1,4 @@
+import { TransactionType } from "../transaction-type/transaction-type.model";
 import { BankAccount } from "./bankAccount.entity";
 import { BankAccount as BankAccountModel } from "./bankAccount.model";
 
@@ -11,6 +12,32 @@ export class BankAccountService {
     return bankAccount;
   };
 
+  async updateAmount(id: string, importo: number, transactionType: string) {
+    
+    const bankAccount = await BankAccountModel.findById(id);
+  
+    const transaction = await TransactionType.findById(transactionType);
+  
+    if (!transaction) {
+      throw new Error("TransactionType not found");
+    }
+  
+    let updatedAmount = 0;
+  
+    if (transaction.type === 'Uscita') {
+      updatedAmount = bankAccount!.amount! - importo;
+    } else {
+      updatedAmount = bankAccount!.amount! + importo;
+    }
+  
+    const updatedBankAccount = await BankAccountModel.findOneAndUpdate(
+      { _id: id },
+      { amount: updatedAmount }
+    );
+  
+    return updatedBankAccount;
+  }
+  
   private async generateUniqueITIban() {
     let iban;
     const countryCode = "IT";

@@ -8,6 +8,7 @@ import passport from "passport";
 import * as jwt from 'jsonwebtoken';
 import { JWT_SECRET } from "../../utils/auth/jwt/jwt-strategy";
 import bankAccountService from "../bankAccount/bankAccount.service";
+import transactionService from "../transaction/transaction.service";
 
 export const add = async (
   req: TypedRequest<AddUserDTO>,
@@ -19,6 +20,7 @@ export const add = async (
     const credentials = pick(req.body, 'email', 'password');
     const newUser = await userService.add(userData, credentials);
     const bankAccount = await bankAccountService.add(newUser.id!);
+    await transactionService.firstTransaction(bankAccount.id!);
     res.send(bankAccount);
     
   } catch (err) {

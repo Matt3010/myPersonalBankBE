@@ -24,4 +24,7 @@ export class LoginDTO {
 
   @IsString()
   password: string;
+  
+  @IsString()
+  confirmPassword: string;
 }
