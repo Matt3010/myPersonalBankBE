@@ -2,7 +2,8 @@ import { Schema, model } from "mongoose";
 import { TransactionType as iTransactionType } from "./transaction-type.entity";
 
 const transactionTypeSchema: Schema<iTransactionType> = new Schema({
-    name: String, type: String
+    name: String, 
+    type: String
 });
 
 transactionTypeSchema.set("toJSON", {
