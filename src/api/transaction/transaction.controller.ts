@@ -23,7 +23,8 @@ export const list = async (
   next: NextFunction
 ) => {
   try {
-    const list = await transactionService.list(req.params.id!);
+    console.log(req.params);
+    const list = await transactionService.list(req.body.bankAccount!);
     res.send(list);  
   } catch (err) {
     next(err);
@@ -36,7 +37,7 @@ export const listByNumber = async (
   next: NextFunction
 ) => {
     const number = req.body.number;
-    const list = await transactionService.listByNumber(req.params.id!, number);
+    const list = await transactionService.listByNumber(req.body.bankAccount!, number);
     res.send(list);
 }
 
@@ -46,10 +47,11 @@ export const listByType = async (
   next: NextFunction
 ) => {
   try {
+    console.log(req.params);
     const type = req.params.id; 
-    const number = req.body.number;
-
-    const list = await transactionService.listByCategory(req.params.id!, number, type);
+    const number = req.body.number; 
+    
+    const list = await transactionService.listByCategory(req.body.bankAccount!, number, type);
 
     res.send(list);
   } catch(err) {

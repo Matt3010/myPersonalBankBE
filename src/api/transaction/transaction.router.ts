@@ -8,9 +8,9 @@ const router = Router();
 router.use(isAuthenticated);
 
 router.get('/:id', list);
-router.post('/category/:id', validate(AddTransictionDTO, 'body'), add);
+router.post('/', validate(AddTransictionDTO, 'body'), add);
 router.get('/number', validate(ListFromNumberDTO), listByNumber);
-router.get('/:id', validate(ListFromNumberDTO), listByType);
+router.get('/category/:id', validate(ListFromNumberDTO), listByType);
 
 
 export default router;

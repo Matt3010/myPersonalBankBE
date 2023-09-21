@@ -21,7 +21,6 @@ passport.use(
         }
         done(null, false, {message: 'invalid password'});
       } catch (err) {
-        console.log(`ok ${err}`)
         done(err);
       }
   })
