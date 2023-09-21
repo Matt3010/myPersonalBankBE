@@ -4,10 +4,6 @@ import { BankAccount as iBankAccount } from "./bankAccount.entity";
 const bankAccountSchema: Schema<iBankAccount> = new Schema({
     user: { type: Schema.Types.ObjectId, ref: "User" }, 
     createdAt: { type: Date, default: Date.now },
-    amount: {
-      type: Number,
-      default: 0
-    },
     iban: {
       type: String,
       unique: true,

@@ -9,7 +9,7 @@ export class AddTransictionDTO {
     bankAccount : string;
 
     @IsNumber()
-	import: number;
+	amount: number;
 
     @IsMongoId()
     @IsExistsInModel(TransactionTypeModel)

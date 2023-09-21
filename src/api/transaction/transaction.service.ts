@@ -1,28 +1,37 @@
+import { last } from "lodash";
 import bankAccountService from "../bankAccount/bankAccount.service";
+import transactionTypeService from "../transaction-type/transaction-type.service";
 import { Transaction } from "./transaction.entity";
 import { Transaction as TransactionModel } from "./transaction.model";
 
 export class TransactionService {
   async firstTransaction(bankId: string): Promise<Transaction> {
-    const first = await this.add(bankId, '650c0c6910ac8ccaff89a444', 0, "Transizione apertura conto");
-    return first;
+    return await this.add(bankId, '650c13eda7e99de7b7812ffd', 0, "Transizione apertura conto");
   }
 
-  async add(
-    bankId: string,
-    transactionType: string,
-    importo: number,
-    description: string
-  ): Promise<Transaction> {
-    const newTransaction = (
-      await TransactionModel.create({
-        bankAccount: bankId,
-        transactionType,
-        import: importo,
-        description,
-      })
-    ).populate(["bankAccount", "transactionType"]);
-    await bankAccountService.updateAmount(bankId, importo, transactionType);
+  async list(bankId: string): Promise<Transaction[]> {
+    return TransactionModel.find({ bankAccount: bankId });
+  }
+
+  async lastTransaction(bankId: string): Promise<Transaction | null> {
+    return TransactionModel.findOne({ bankAccount: bankId }, {}, { sort: { createdAt: -1 } });
+  }
+
+  async add(bankId: string, transactionType: string, amount: number, description: string): Promise<Transaction> {
+    const lastTransactionRecord = await this.lastTransaction(bankId);
+    const transaction = await transactionTypeService.getOne(transactionType);
+
+    let balance = 0;
+
+    if (transaction && lastTransactionRecord) {
+      if (transaction.type === 'Uscita') {
+        balance = lastTransactionRecord.balance! - amount;
+      } else {
+        balance = lastTransactionRecord.balance! + amount;
+      }
+    }
+
+    const newTransaction = await TransactionModel.create({bankAccount: bankId, transactionType, amount, balance, description});
 
     return newTransaction;
   }

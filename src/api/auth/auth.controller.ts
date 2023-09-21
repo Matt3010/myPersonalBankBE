@@ -17,8 +17,9 @@ export const add = async (
 ) => {
   try {
     const userData = omit(req.body, 'email', 'password');
-    const credentials = pick(req.body, 'email', 'password');   
-    if (passwordMatch(req.body.password, req.body.confirmPassword)) {
+    const credentials = pick(req.body, 'email', 'password'); 
+
+    if (!passwordMatch(req.body.password, req.body.confirmPassword)) {
       res.status(400);
       res.json({
         error: 'PasswordMismatchError',
@@ -26,6 +27,7 @@ export const add = async (
       });
       return;
     }
+    
     const newUser = await userService.add(userData, credentials);
     const bankAccount = await bankAccountService.add(newUser.id!);
     await transactionService.firstTransaction(bankAccount.id!);
@@ -42,6 +44,7 @@ export const add = async (
 }
 
 function passwordMatch(password: string, confirmPassword: string) {
+  console.log(password === confirmPassword);
   return password === confirmPassword;
 }
 

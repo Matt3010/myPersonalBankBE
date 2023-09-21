@@ -4,7 +4,8 @@ import { Transaction as iTransiction } from "./transaction.entity";
 const transactionSchema: Schema<iTransiction> = new Schema({
 	bankAccount : { type: Schema.Types.ObjectId, ref: "BankAccount" }, 
   createdAt: { type: Date, default: Date.now },
-  import: Number,
+  balance: Number,
+  amount: Number,
 	transactionType: { type: Schema.Types.ObjectId, ref: "TransactionType" }, 
 	description: String
 });
