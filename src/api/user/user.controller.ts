@@ -9,8 +9,7 @@ export const me = async(
   const email = await UserIdentity.find({user: req.user?.id!});
 
   const profile = {
-    user: req.user,
-    email: email[0].credentials.email
+    user: {user: req.user, email: email[0].credentials.email},
   }
   res.json(profile);
 }
