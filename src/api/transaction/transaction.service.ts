@@ -10,11 +10,19 @@ export class TransactionService {
   }
 
   async list(bankId: string): Promise<Transaction[]> {
-    return TransactionModel.find({ bankAccount: bankId });
+    return TransactionModel.find({ bankAccount: bankId }).sort({ createdAt: -1 });
+  }
+
+  async listByNumber(bankId: string, number: number) : Promise<Transaction[]> {
+    return TransactionModel.find({bankAccount: bankId}).limit(number).sort({createdAt: -1});
+  }
+
+  async listByCategory(bankId: string, number: number, category: string): Promise<Transaction[]> {
+    return TransactionModel.find({ bankAccount: bankId, transactionType: category }).limit(number).sort({createdAt: -1});
   }
 
   async lastTransaction(bankId: string): Promise<Transaction | null> {
-    return TransactionModel.findOne({ bankAccount: bankId }, {}, { sort: { createdAt: -1 } });
+    return TransactionModel.findOne({ bankAccount: bankId }).sort({ createdAt: -1 });
   }
 
   async add(bankId: string, transactionType: string, amount: number, description: string): Promise<Transaction> {
