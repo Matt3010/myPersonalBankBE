@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 
 export class NotFoundError extends Error {
-  constructor() {
+  constructor(customError : string = 'User not found') {
     super();
-    this.name = 'NotFoundError';
-    this.message = 'User not found';
+    this.name = 'Not Found Error';
+    this.message = customError;
   }
 }
 

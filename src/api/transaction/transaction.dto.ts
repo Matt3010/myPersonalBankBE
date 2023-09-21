@@ -22,9 +22,15 @@ export class AddTransictionDTO {
 }
 
 export class ListFromNumberDTO {
+    @IsNumber()
+    @Type(() => Number)
+    number: number;
+}
+
+export class ListFromNumberAndTypeDTO {
     @IsMongoId()
-    @IsExistsInModel(BankAccountModel)
-    bankAccount : string;
+    @IsExistsInModel(TransactionTypeModel)
+    type: string;
 
     @IsNumber()
     @Type(() => Number)
@@ -32,10 +38,6 @@ export class ListFromNumberDTO {
 }
 
 export class ListFromDateDTO {
-    @IsMongoId()
-    @IsExistsInModel(BankAccountModel)
-    bankAccount : string;
-
     @IsNumber()
     @Type(() => Number)
     number: number;
