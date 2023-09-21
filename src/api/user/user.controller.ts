@@ -10,7 +10,7 @@ export const me = async(
 
   const profile = {
     user: req.user,
-    email
+    email: email[0].credentials.email
   }
   res.json(profile);
 }

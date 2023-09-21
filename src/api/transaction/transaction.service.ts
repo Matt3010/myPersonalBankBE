@@ -5,7 +5,7 @@ import { Transaction } from "./transaction.entity";
 import { Transaction as TransactionModel } from "./transaction.model";
 
 export class TransactionService {
-  async firstTransaction(bankId: string): Promise<Transaction> {
+  async openTransaction(bankId: string): Promise<Transaction> {
     return await this.add(bankId, '650c13eda7e99de7b7812ffd', 0, "Transizione apertura conto");
   }
 
@@ -21,14 +21,13 @@ export class TransactionService {
     return TransactionModel.find({ bankAccount: bankId, transactionType: category }).limit(number).sort({createdAt: -1});
   }
 
-  async lastTransaction(bankId: string): Promise<Transaction | null> {
+  async last(bankId: string): Promise<Transaction | null> {
     return TransactionModel.findOne({ bankAccount: bankId }).sort({ createdAt: -1 });
   }
 
   async add(bankId: string, transactionType: string, amount: number, description: string): Promise<Transaction> {
-    const lastTransactionRecord = await this.lastTransaction(bankId);
+    const lastTransactionRecord = await this.last(bankId);
     const transaction = await transactionTypeService.getOne(transactionType);
-
     let balance = 0;
 
     if (transaction && lastTransactionRecord) {

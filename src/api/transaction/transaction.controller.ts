@@ -2,8 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { TypedRequest } from "../../utils/typed-request.interface";
 import { AddTransictionDTO, ListFromNumberDTO } from "./transaction.dto";
 import transactionService from "./transaction.service";
-import bankAccountService from "../bankAccount/bankAccount.service";
-import { BankAccount } from "../bankAccount/bankAccount.entity";
 
 export const add = async (
     req: TypedRequest<AddTransictionDTO>,
@@ -25,8 +23,7 @@ export const list = async (
   next: NextFunction
 ) => {
   try {
-    const bankAccount = await bankAccountService.getFromUser(req.user?.id!);
-    const list = await transactionService.list(bankAccount.id!);
+    const list = await transactionService.list(req.params.id!);
     res.send(list);  
   } catch (err) {
     next(err);
@@ -39,8 +36,7 @@ export const listByNumber = async (
   next: NextFunction
 ) => {
     const number = req.body.number;
-    const bankAccount = await bankAccountService.getFromUser(req.user?.id!);
-    const list = await transactionService.listByNumber(bankAccount.id!, number);
+    const list = await transactionService.listByNumber(req.params.id!, number);
     res.send(list);
 }
 
@@ -53,9 +49,7 @@ export const listByType = async (
     const type = req.params.id; 
     const number = req.body.number;
 
-    const bankAccount = await bankAccountService.getFromUser(req.user?.id!);
-
-    const list = await transactionService.listByCategory(bankAccount.id!, number, type);
+    const list = await transactionService.listByCategory(req.params.id!, number, type);
 
     res.send(list);
   } catch(err) {

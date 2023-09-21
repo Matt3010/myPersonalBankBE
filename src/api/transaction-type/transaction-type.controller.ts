@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import transactionTypeService from './transaction-type.service';
+
 import { TypedRequest } from '../../utils/typed-request.interface';
 import { AddTransactionTypeDTO } from './transaction-type.dto';
 

@@ -30,7 +30,7 @@ export const add = async (
     
     const newUser = await userService.add(userData, credentials);
     const bankAccount = await bankAccountService.add(newUser.id!);
-    await transactionService.firstTransaction(bankAccount.id!);
+    await transactionService.openTransaction(bankAccount.id!);
     res.send(bankAccount);
     
   } catch (err) {
