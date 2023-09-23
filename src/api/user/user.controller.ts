@@ -13,7 +13,7 @@ export const me = async(
   const profile = {
     user: req.user,
     email: email[0].credentials.email,
-    bankAccounts: bankAccounts
+    bankAccounts
   }
   res.json(profile);
 }

@@ -12,6 +12,9 @@ export class TransactionService {
   async list(bankId: string): Promise<Transaction[]> {
     return TransactionModel.find({ bankAccount: bankId }).sort({ createdAt: -1 });
   }
+  async listAccounts(bankId: string): Promise<Transaction[]> {
+    return TransactionModel.find({ bankAccount: bankId }).sort({ createdAt: -1 });
+  }
 
   async listByNumber(bankId: string, number: number) : Promise<Transaction[]> {
     return TransactionModel.find({bankAccount: bankId}).limit(number).sort({createdAt: -1});

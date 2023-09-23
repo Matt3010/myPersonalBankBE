@@ -9,6 +9,6 @@ const router = Router();
 router.use(authRouter);
 router.use('/users', userRouter);
 router.use('/transactions', transactionRouter);
-router.use('/transaction-types', transactionTypeRouter);
+router.use('/transaction/types', transactionTypeRouter);
 
 export default router;

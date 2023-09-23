@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { TypedRequest } from "../../utils/typed-request.interface";
 import { AddTransictionDTO, ListFromNumberAndTypeDTO, ListFromNumberDTO } from "./transaction.dto";
 import transactionService from "./transaction.service";
+import { BankAccount as BankAccountModel} from "../bankAccount/bankAccount.model";
 
 export const add = async (
     req: TypedRequest<AddTransictionDTO>,
@@ -31,15 +32,21 @@ export const list = async (
   }
 }
 
+
 export const listByNumber = async (
   req: TypedRequest<ListFromNumberDTO>,
   res: Response,
   next: NextFunction
 ) => {
+  try{
     const bankAccount = req.params.id!;
     const number = req.body.number;
     const list = await transactionService.listByNumber(bankAccount, number);
     res.send(list);
+    }
+    catch(err){
+      next(err)
+    }
 }
 
 export const listByType = async (
