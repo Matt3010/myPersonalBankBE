@@ -12,6 +12,6 @@ router.use(isAuthenticated);
 router.get('/:id', list);
 router.post('/:id', validate(AddTransictionDTO, 'body'), validateId(BankAccountModel), add);
 router.post('/:id/number', validate(ListFromNumberDTO), validateId(BankAccountModel), listByNumber);
-router.get('/:id/category', validate(ListFromNumberAndTypeDTO), validateId(BankAccountModel), listByType);
+router.post('/:id/category', validate(ListFromNumberAndTypeDTO), validateId(BankAccountModel), listByType);
 
 export default router;

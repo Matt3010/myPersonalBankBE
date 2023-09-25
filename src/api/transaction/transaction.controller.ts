@@ -58,9 +58,7 @@ export const listByType = async (
     const bankAccount = req.params.id!;
     const number = req.body.number; 
     const type = req.body.type;
-    
-    console.log(`bank account : ${bankAccount}`);
-    
+      
     const list = await transactionService.listByCategory(bankAccount, number, type);
 
     res.send(list);
