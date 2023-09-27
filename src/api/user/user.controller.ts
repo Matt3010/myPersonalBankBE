@@ -1,19 +1,9 @@
-import { NextFunction, Response, Request } from "express";
-import { UserIdentity as UserIdentityModel } from "../../utils/auth/local/user-identity.model";
-import { BankAccount as BankAccountModel} from "../bankAccount/bankAccount.model";
+import { NextFunction, Request, Response } from "express";
 
 export const me = async(
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const email = await UserIdentityModel.find({user: req.user?.id!});
-  const bankAccounts = await BankAccountModel.find({user: req.user?.id});
-
-  const profile = {
-    user: req.user,
-    email: email[0].credentials.email,
-    bankAccounts: bankAccounts
-  }
-  res.json(profile);
+  res.json(req.user);
 }

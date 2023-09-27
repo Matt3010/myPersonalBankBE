@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import { TypedRequest } from "../../utils/typed-request.interface";
-import { AddTransictionDTO, ListFromNumberAndTypeDTO, ListFromNumberDTO } from "./transaction.dto";
+import { AddTransictionDTO, MobileRechargeDTO, QueryTransactionDTO } from "./transaction.dto";
 import transactionService from "./transaction.service";
 
 export const add = async (
@@ -17,47 +17,14 @@ export const add = async (
     }
   }
 
-export const list = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const bankAccount = req.params.id!;
-    const list = await transactionService.list(bankAccount);
-    res.send(list);  
-  } catch (err) {
-    next(err);
+  export const mobileRecharge = async (
+    req: TypedRequest<MobileRechargeDTO>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+        
+    } catch (err) {
+      next(err);
+    }
   }
-}
-
-export const listByNumber = async (
-  req: TypedRequest<ListFromNumberDTO>,
-  res: Response,
-  next: NextFunction
-) => {
-    const bankAccount = req.params.id!;
-    const number = req.body.number;
-    const list = await transactionService.listByNumber(bankAccount, number);
-    res.send(list);
-}
-
-export const listByType = async (
-  req: TypedRequest<ListFromNumberAndTypeDTO>,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const bankAccount = req.params.id!;
-    const number = req.body.number; 
-    const type = req.body.type;
-    
-    console.log(`bank account : ${bankAccount}`);
-    
-    const list = await transactionService.listByCategory(bankAccount, number, type);
-
-    res.send(list);
-  } catch(err) {
-    next(err);
-  }
-}

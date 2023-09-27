@@ -1,18 +1,14 @@
 import { Router } from "express";
-import { add, list, listByNumber, listByType } from "./transaction.controller";
-import { validate } from "../../utils/validation.middleware";
-import { AddTransictionDTO, ListFromNumberAndTypeDTO, ListFromNumberDTO } from "./transaction.dto";
 import { isAuthenticated } from "../../utils/auth/authenticated.middleware";
-import { validateId } from "../../utils/combined-mongoId-owner.middleware";
-import { BankAccount as BankAccountModel } from "../bankAccount/bankAccount.model";
-
+import { MobileRechargeDTO } from "./transaction.dto";
+import { validate } from "../../utils/middleware/validation.middleware";
+import { validateIdAndAmount } from "../../utils/middleware/combined.middleware";
+import { BankAccount } from "../bankAccount/bankAccount.model";
+import { mobileRecharge } from "./transaction.controller";
 const router = Router();
+
 router.use(isAuthenticated);
 
-router.get('/:id', list);
-router.post('/:id', validate(AddTransictionDTO, 'body'), validateId(BankAccountModel), add);
-router.get('/:id/number', validate(ListFromNumberDTO), validateId(BankAccountModel), listByNumber);
-router.get('/:id/category', validate(ListFromNumberAndTypeDTO), validateId(BankAccountModel), listByType);
-
+router.patch(':id/mobileRecharge', validate(MobileRechargeDTO), validateIdAndAmount(BankAccount), mobileRecharge);
 
 export default router;

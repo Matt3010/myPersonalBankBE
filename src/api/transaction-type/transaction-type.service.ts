@@ -11,11 +11,16 @@ export class TransactionTypeService {
   }
 
   async get(): Promise<TransactionType[]> {
-    return TransactionTypeModel.find();
+    return await TransactionTypeModel.find();
   }
 
-  async getOne(id: string) : Promise<TransactionType | null> {
-    return TransactionTypeModel.findById(id);
+  async getByType(type: string): Promise<TransactionType[] | null> {
+    const transactionType = await TransactionTypeModel.find({ type });
+    return transactionType;
+  }
+
+  async getOne(id: string): Promise<TransactionType | null> {
+    return await TransactionTypeModel.findById(id);
   }
 }
 

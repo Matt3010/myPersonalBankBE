@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validate } from "../../utils/validation.middleware";
+import { validate } from "../../utils/middleware/validation.middleware";
 import { AddUserDTO, LoginDTO } from "./auth.dto";
 import { add } from "./auth.controller";
 import { login } from "./auth.service";

@@ -8,7 +8,6 @@ import { BankAccount as BankAccountModel} from "../bankAccount/bankAccount.model
 export class UserService {
 
   async add(user: User, credentials: {email: string, password: string}): Promise<User> {
-    console.log(credentials.email);
     const existingIdentity = await UserIdentityModel.findOne({'credentials.email': credentials.email});
     if (existingIdentity) {
       throw new UserExistsError();

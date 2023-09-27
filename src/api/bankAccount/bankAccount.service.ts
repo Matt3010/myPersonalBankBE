@@ -21,7 +21,11 @@ export class BankAccountService {
     const existingBankAccount = await BankAccountModel.findOne({ iban });
     return !existingBankAccount;
   }
-  
+
+  async get(user: string): Promise<BankAccount[]> {
+    const bankAccount = await BankAccountModel.find({user});
+    return bankAccount;
+  }
 }
 
 export default new BankAccountService();

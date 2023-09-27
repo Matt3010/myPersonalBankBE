@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as mongoose from 'mongoose';
-import { CastMongoId } from "../errors/cast-error";
+import { CastMongoId } from "../../errors/cast-error";
 
 export const validateMongoIdParam = (paramName: string) => {
   return (req: Request, res: Response, next: NextFunction) => {

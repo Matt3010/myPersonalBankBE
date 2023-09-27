@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validate } from "../../utils/validation.middleware";
+import { validate } from "../../utils/middleware/validation.middleware";
 import { AddTransactionTypeDTO } from "./transaction-type.dto";
 import { add, list } from "./transaction-type.controller";
 
