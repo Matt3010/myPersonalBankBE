@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { validateModelID } from './validate-model-id.middleware';
 import { validateMongoIdParam } from './validate-mongoid-param.middleware';
-import { validateAmount } from './validate-amount.middleware copy';
+import { validateAmount } from './validate-amount.middleware';
 
 const compose = require("compose-middleware").compose;
 

@@ -3,6 +3,7 @@ import { MobileRechargeDTO } from "../../api/transaction/transaction.dto";
 import transactionService from "../../api/transaction/transaction.service";
 import { TypedRequest } from "../typed-request.interface";
 import { Model } from "mongoose";
+import { NoFundsError } from "../../errors/no-founds";
 
 export const validateAmount = (
   model: Model<any>,
@@ -18,6 +19,9 @@ export const validateAmount = (
       const balanceDifference = lastTransaction?.balance! - req.body.amount;
       if (balanceDifference > 0) {
         next();
+      }
+      else {
+        throw new NoFundsError();
       }
     } catch (err) {
       next(err);
