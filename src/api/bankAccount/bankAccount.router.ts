@@ -4,7 +4,7 @@ import { isAuthenticated } from "../../utils/auth/authenticated.middleware";
 import { list } from "./bankAccount.controller";
 import { list as listTransactions } from "../transaction/transaction.controller";
 import { QueryTransactionDTO } from "../transaction/transaction.dto";
-import { validateId } from "../../utils/middleware/combined-mongoId-owner.middleware";
+import { validateId } from "../../utils/middleware/combined.middleware";
 import { BankAccount } from "./bankAccount.model";
 
 
