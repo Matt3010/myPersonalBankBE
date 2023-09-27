@@ -41,6 +41,9 @@ export class TransactionService {
     const list = await TransactionModel.find(q).limit(query.number || 0).sort({createdAt: -1}).populate('transactionType');
     return list;
   }
+  async listAccounts(bankId: string): Promise<Transaction[]> {
+    return TransactionModel.find({ bankAccount: bankId }).sort({ createdAt: -1 });
+  }
 
   async last(bankAccount: string): Promise<Transaction | null> {
     return TransactionModel.findOne({ bankAccount }).sort({
