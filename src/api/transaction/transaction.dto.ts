@@ -59,3 +59,16 @@ export class QueryTransactionDTO {
     @IsIn([5, 10, 15, 20, 25, 50])
 	amount: number;
   }
+
+  export class TransferDTO {
+    @IsString()
+    bankAccount: string;
+
+    @IsNumber()
+    @Type(() => Number)
+	amount: number;
+
+    @IsOptional()
+    @IsString()
+    description: string;
+  }

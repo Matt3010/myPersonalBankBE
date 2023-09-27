@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
 import { TypedRequest } from "../../utils/typed-request.interface";
-import { AddTransictionDTO, MobileRechargeDTO, QueryTransactionDTO } from "./transaction.dto";
+import { AddTransictionDTO, MobileRechargeDTO, QueryTransactionDTO, TransferDTO } from "./transaction.dto";
 import transactionService from "./transaction.service";
 
 export const add = async (
@@ -39,6 +39,21 @@ export const add = async (
     try {
         const transaction = transactionService.add(req.params.id, '650c1431a7e99de7b7813005', req.body.amount, `Ricarica telefonica ${req.body.operator} al numero ${req.body.mobile} per una somma di ${req.body.amount}`);
         res.send(transaction);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  export const transfer = async (
+    req: TypedRequest<TransferDTO>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const bankAccountSender = req.params.id;
+      const { bankAccount, amount, description} = req.body;
+        await transactionService.transfer(bankAccount, bankAccountSender, amount, description);
+        res.send('eseguito con successo');
     } catch (err) {
       next(err);
     }
