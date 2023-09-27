@@ -15,15 +15,6 @@ export const add = async (
   try {
     const userData = omit(req.body, 'email', 'password');
     const credentials = pick(req.body, 'email', 'password'); 
-
-    if (!passwordMatch(req.body.password, req.body.confirmPassword)) {
-      res.status(400);
-      res.json({
-        error: 'PasswordMismatchError',
-        message: 'Password and confirmPassword do not match',
-      });
-      return;
-    }
     
     const newUser = await userService.add(userData, credentials);
     const bankAccount = await bankAccountService.add(newUser.id!);
@@ -39,9 +30,4 @@ export const add = async (
     }
   }
 }
-
-function passwordMatch(password: string, confirmPassword: string) {
-  return password === confirmPassword;
-}
-
 

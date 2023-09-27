@@ -1,4 +1,5 @@
 import { IsEmail, IsString, Matches, MinLength } from "class-validator";
+import { IsEqualPass } from "../../utils/auth/validator/isEqualPass.validator";
 
 export class AddUserDTO {
   @IsString()
@@ -17,6 +18,7 @@ export class AddUserDTO {
   })
   password: string;
 
+  @IsEqualPass('password')
   @MinLength(8)
   @Matches(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d|\W).*$/, {
     message:
