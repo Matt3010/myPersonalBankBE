@@ -6,10 +6,6 @@ import { Type } from "class-transformer";
 import { IsDateGreaterThan } from "../../utils/auth/validator/isDateGreaterThan.validator";
 
 export class AddTransictionDTO {
-    @IsMongoId()
-    @IsExistsInModel(BankAccountModel)
-    bankAccount : string;
-
     @IsNumber()
     @Type(() => Number)
 	amount: number;

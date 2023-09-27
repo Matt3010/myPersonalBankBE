@@ -9,7 +9,8 @@ export const add = async (
     next: NextFunction
   ) => {
     try {
-        const { bankAccount, transactionType, amount, description } = req.body
+        const bankAccount = req.params.id;
+        const { transactionType, amount, description } = req.body
         const newTransaction = await transactionService.add(bankAccount, transactionType, amount, description);
         res.send(newTransaction);
     } catch (err) {
