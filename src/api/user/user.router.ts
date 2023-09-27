@@ -5,6 +5,9 @@ import { isAuthenticated } from "../../utils/auth/authenticated.middleware";
 
 const router = Router();
 
-router.get('/profile', isAuthenticated, me);
+router.use(isAuthenticated);
+
+router.get('/profile', me);
+router.patch('/resetPassword', reset);
 
 export default router;
