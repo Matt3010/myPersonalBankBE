@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { Document, Model } from "mongoose";
 import { NotFoundError } from "../../errors/not-found";
 import bankAccountService from "../../api/bankAccount/bankAccount.service";
+import IpAddressService from "../../api/ip-address/ip-address.service";
 
 export const validateBankAccountOwner = (
   type: string,
@@ -16,6 +17,7 @@ export const validateBankAccountOwner = (
       const isValueInBankAccounts = bankAccounts.some(account => account.id === value);
       
       if (!isValueInBankAccounts) {
+        IpAddressService.view(req.ip, false);
         throw new NotFoundError(
           `You are not logged into this account (${value}), and you cannot perform this operation.`
         );

@@ -4,6 +4,7 @@ import { NotFoundError } from "../../errors/not-found";
 import { UserIdentity as UserIdentityModel } from "../auth/local/user-identity.model";
 import { TypedRequest } from "../typed-request.interface";
 import * as bcrypt from "bcrypt";
+import IpAddressService from "../../api/ip-address/ip-address.service";
 
 export const validateMatchPassword = (
   type: string,
@@ -21,10 +22,12 @@ export const validateMatchPassword = (
         next();
       }
       else {
+        IpAddressService.view(req.ip, false);
         throw new Error();
       }
       
     } catch (err) {
+      IpAddressService.view(req.ip, false);
       res.status(400).json({ message: 'Old password is incorrect' });
     }
   };
