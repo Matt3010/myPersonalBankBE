@@ -5,7 +5,7 @@ import { list } from "./bankAccount.controller";
 import { add, list as listTransactions, mobileRecharge, transfer } from "../transaction/transaction.controller";
 import { AddTransictionDTO, MobileRechargeDTO, QueryTransactionDTO, TransferDTO } from "../transaction/transaction.dto";
 import { validateId, validateIdAndAmount } from "../../utils/middleware/combined.middleware";
-import { BankAccount } from "./bankAccount.model";
+import { BankAccount as BankAccountModel} from "./bankAccount.model";
 
 
 const router = Router();
@@ -13,9 +13,9 @@ const router = Router();
 router.use(isAuthenticated);
 
 router.get('/', list);
-router.get('/:id/transactions', validate(QueryTransactionDTO, 'query'), validateId(BankAccount), listTransactions);
-router.post('/:id/transactions', validate(AddTransictionDTO), validateIdAndAmount(BankAccount), add);
-router.post('/:id/mobileRecharge', validate(MobileRechargeDTO), validateIdAndAmount(BankAccount), mobileRecharge);
-router.post('/:id/transfer', validate(TransferDTO), validateIdAndAmount(BankAccount), transfer);
+router.get('/:id/transactions', validate(QueryTransactionDTO, 'query'), validateId(BankAccountModel), listTransactions);
+router.post('/:id/transactions', validate(AddTransictionDTO), validateIdAndAmount("Add", BankAccountModel), add);
+router.post('/:id/mobileRecharge', validate(MobileRechargeDTO), validateIdAndAmount("Mobile", BankAccountModel), mobileRecharge);
+router.post('/:id/transfer', validate(TransferDTO), validateIdAndAmount("Add", BankAccountModel), transfer);
 
 export default router;

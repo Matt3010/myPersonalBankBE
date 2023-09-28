@@ -16,12 +16,12 @@ export const validateId = (model: Model<any>, origin: ValidationType = 'params',
   ]);
 };
 
-export const validateIdAndAmount = (model: Model<any>, origin: ValidationType = 'params', param: string = 'id') => {
+export const validateIdAndAmount = (transaction: "Mobile" | "Add", model: Model<any>, origin: ValidationType = 'params', param: string = 'id') => {
   return compose([
     validateMongoIdParam(param),
     validateBankAccountOwner(origin, param),
     validateModelID(model, origin, param),
-    validateAmount(model, origin, param)
+    validateAmount(transaction, origin, param)
   ]);
 };
 
