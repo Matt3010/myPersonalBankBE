@@ -10,6 +10,11 @@ export class BankAccountService {
     return bankAccount!;
   }
 
+  async getByIban(iban: string) : Promise<BankAccount> {
+    const bankAccount = await BankAccountModel.findOne({iban}).populate('user');
+    return bankAccount!;
+  }
+
   async add(id: string): Promise<BankAccount> {
     const iban = await generateUniqueITIban();
     const bankAccount = await BankAccountModel.create({ user: id, iban: iban.toUpperCase() });

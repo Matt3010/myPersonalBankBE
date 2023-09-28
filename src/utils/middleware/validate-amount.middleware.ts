@@ -1,14 +1,11 @@
 import { NextFunction, Response } from "express";
+import transactionTypeService from "../../api/transaction-type/transaction-type.service";
 import {
-  AddTransictionDTO,
-  MobileRechargeDTO,
-  TransferDTO,
+  AddTransictionDTO
 } from "../../api/transaction/transaction.dto";
 import transactionService from "../../api/transaction/transaction.service";
-import { TypedRequest } from "../typed-request.interface";
-import { Model } from "mongoose";
 import { NoFundsError } from "../../errors/no-funds";
-import transactionTypeService from "../../api/transaction-type/transaction-type.service";
+import { TypedRequest } from "../typed-request.interface";
 
 export const validateAmount = (
   transaction: string,

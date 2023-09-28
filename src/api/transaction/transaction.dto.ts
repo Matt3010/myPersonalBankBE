@@ -15,6 +15,7 @@ import { BankAccount as BankAccountModel } from "../bankAccount/bankAccount.mode
 import { TransactionType as TransactionTypeModel } from "../transaction-type/transaction-type.model";
 import { Type } from "class-transformer";
 import { IsDateGreaterThan } from "../../utils/auth/validator/isDateGreaterThan.validator";
+import { IsIbanInModel } from "../../utils/auth/validator/isIbanExists.validator";
 
 export class AddTransictionDTO {
   @IsNumber()
@@ -88,7 +89,7 @@ export class MobileRechargeDTO {
 
 export class TransferDTO {
   @IsString()
-  @IsExistsInModel(BankAccountModel)
+  @IsIbanInModel(BankAccountModel)
   bankAccount: string;
 
   @IsNumber()

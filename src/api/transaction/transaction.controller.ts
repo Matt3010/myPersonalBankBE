@@ -2,6 +2,7 @@ import { NextFunction, Response } from "express";
 import { TypedRequest } from "../../utils/typed-request.interface";
 import { AddTransictionDTO, MobileRechargeDTO, QueryTransactionDTO, TransferDTO } from "./transaction.dto";
 import transactionService from "./transaction.service";
+import bankAccountService from "../bankAccount/bankAccount.service";
 
 export const add = async (
     req: TypedRequest<AddTransictionDTO>,
@@ -52,9 +53,10 @@ export const add = async (
   ) => {
     try {
       const bankAccountSender = req.params.id;
-      const { bankAccount, amount, description} = req.body;
-        await transactionService.transfer(bankAccount, bankAccountSender, amount, description);
-        res.send('eseguito con successo');
+      const bankAccountReciver = await bankAccountService.getByIban(req.body.bankAccount);
+      const { amount, description} = req.body;
+        await transactionService.transfer(bankAccountReciver.id!, bankAccountSender, amount, description);
+        res.send('Trasferimento eseguito con successo');
     } catch (err) {
       next(err);
     }
