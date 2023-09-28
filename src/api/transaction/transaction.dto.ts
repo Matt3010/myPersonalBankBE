@@ -10,12 +10,12 @@ import {
   Max,
   Min,
 } from "class-validator";
-import { IsExistsInModel } from "../../utils/auth/validator/checkIfExists.validator";
+import { IsExistsInModel } from "../../utils/validator/checkIfExists.validator";
 import { BankAccount as BankAccountModel } from "../bankAccount/bankAccount.model";
 import { TransactionType as TransactionTypeModel } from "../transaction-type/transaction-type.model";
 import { Type } from "class-transformer";
-import { IsDateGreaterThan } from "../../utils/auth/validator/isDateGreaterThan.validator";
-import { IsIbanInModel } from "../../utils/auth/validator/isIbanExists.validator";
+import { IsDateGreaterThan } from "../../utils/validator/isDateGreaterThan.validator";
+import { IsIbanInModel } from "../../utils/validator/isIbanExists.validator";
 
 export class AddTransictionDTO {
   @IsNumber()

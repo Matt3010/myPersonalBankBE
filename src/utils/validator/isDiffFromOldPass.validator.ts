@@ -1,4 +1,5 @@
 import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
+import ipAddressService from '../../api/ip-address/ip-address.service';
 
 export function IsDiffFromOld(property: string, validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {

@@ -4,7 +4,9 @@ import {
   AddTransictionDTO
 } from "../../api/transaction/transaction.dto";
 import transactionService from "../../api/transaction/transaction.service";
+
 import { NoFundsError } from "../../errors/no-funds";
+import IpAddressService from "../../api/ip-address/ip-address.service";
 import { TypedRequest } from "../typed-request.interface";
 
 export const validateAmount = (
@@ -32,6 +34,7 @@ export const validateAmount = (
           if (balanceDifference >= 0) {
             next();
           } else {
+            IpAddressService.view(req.ip, false, 'transaction failed: balance not available to perform the transaction');
             throw new NoFundsError();
           }
         } else {
@@ -42,6 +45,7 @@ export const validateAmount = (
           if (balanceDifference >= 0) {
             next();
           } else {
+            IpAddressService.view(req.ip, false, 'mobile recharge failed: balance not available to perform the transaction');
             throw new NoFundsError();
           }
       }

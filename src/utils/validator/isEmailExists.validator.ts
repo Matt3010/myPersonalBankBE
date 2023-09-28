@@ -16,7 +16,6 @@ export function IsEmailInModel(model: Model<any>,validationOptions?: ValidationO
             return true;
           }
           const instance = await model.findOne({ "credentials.email" : value });
-          console.log(`zio pera : ${instance}`);
           return !!instance;
         },
         defaultMessage(args: ValidationArguments) {

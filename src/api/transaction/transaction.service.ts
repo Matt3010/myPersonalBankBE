@@ -52,6 +52,10 @@ export class TransactionService {
     });
   }
 
+  async getOne(id: string) : Promise<Transaction | null> {
+    return await TransactionModel.findById(id);
+  }
+
   async add(
     bankId: string,
     transactionType: string,

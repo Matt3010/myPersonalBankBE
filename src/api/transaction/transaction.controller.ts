@@ -1,4 +1,4 @@
-import { NextFunction, Response } from "express";
+import { Request, NextFunction, Response } from "express";
 import { TypedRequest } from "../../utils/typed-request.interface";
 import { AddTransictionDTO, MobileRechargeDTO, QueryTransactionDTO, TransferDTO } from "./transaction.dto";
 import transactionService from "./transaction.service";
@@ -60,4 +60,14 @@ export const add = async (
     } catch (err) {
       next(err);
     }
+  }
+
+  export const getOne = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const transactionId = req.params.id;
+    const transaction = await transactionService.getOne(transactionId);
+    res.send(transaction);
   }
