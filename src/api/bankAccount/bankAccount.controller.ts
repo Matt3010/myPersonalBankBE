@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import bankAccountService from "./bankAccount.service";
+import transactionService from "../transaction/transaction.service";
 
 export const list = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -13,6 +14,7 @@ export const list = async (req: Request, res: Response, next: NextFunction) => {
 export const add = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const bankAccount = await bankAccountService.add(req.user?.id!);
+    await transactionService.openTransaction(bankAccount.id!);
     res.send(bankAccount);
   } catch (err) {
     next(err);
