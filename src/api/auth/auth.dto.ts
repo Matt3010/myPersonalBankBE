@@ -34,3 +34,8 @@ export class LoginDTO {
   @IsString()
   password: string;
 }
+
+export class MailResetDTO {
+  @IsEmail()
+  email: string;
+}

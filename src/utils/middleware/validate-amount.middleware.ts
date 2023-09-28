@@ -3,7 +3,7 @@ import { AddTransictionDTO, MobileRechargeDTO, TransferDTO } from "../../api/tra
 import transactionService from "../../api/transaction/transaction.service";
 import { TypedRequest } from "../typed-request.interface";
 import { Model } from "mongoose";
-import { NoFundsError } from "../../errors/no-founds";
+import { NoFundsError } from "../../errors/no-funds";
 import transactionTypeService from "../../api/transaction-type/transaction-type.service";
 
 export const validateAmount = (

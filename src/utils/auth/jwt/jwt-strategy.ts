@@ -12,6 +12,7 @@ passport.use(
   async (token, done) => {
     try {
       const user = await UserModel.findById(token.id);
+      
       if (user) {
         return done(null, user.toObject());
       } else {

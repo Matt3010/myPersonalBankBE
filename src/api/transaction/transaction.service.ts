@@ -86,7 +86,7 @@ export class TransactionService {
     bankAccountSender: string,
     amount: number,
     description: string
-  ): Promise<any> {
+  ) {
     await this.add(bankAccountSender, '650c1425a7e99de7b7813003', amount, description);
     await this.add(bankAccountRecipient, '650c13f8a7e99de7b7812fff', amount, description);
   }

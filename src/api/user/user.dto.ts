@@ -17,8 +17,3 @@ export class ResetPasswordDTO {
   @IsDiffFromOld('oldPassword')
   newPassword: string;
 }
-
-export class MailResetDTO {
-  @IsEmail()
-  email: string;
-}
