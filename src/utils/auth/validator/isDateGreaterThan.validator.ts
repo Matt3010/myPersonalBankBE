@@ -20,7 +20,7 @@ export function IsDateGreaterThan(property: string, validationOptions?: Validati
           const date1 = new Date(value);
           const date2 = new Date(relatedValue);
 
-          return date1 > date2;
+          return date1 >= date2;
         },
         defaultMessage(args: ValidationArguments) {
           const [relatedPropertyName] = args.constraints;

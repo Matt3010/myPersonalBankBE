@@ -50,7 +50,7 @@ export const sendMail = async (
       return specialChars.charAt(Math.floor(Math.random() * specialChars.length));
     }
     
-    const newPassword = passwordGenerator(12, false, /[\w\d\?\-]/, 'Aa1') + getRandomSpecialChar();
+    const newPassword = passwordGenerator(20, false, /[\w\d\?\-]/) + getRandomSpecialChar();
 
     await sendResetEmail(email, newPassword);
 
