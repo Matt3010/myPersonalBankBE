@@ -19,7 +19,7 @@ export class TransactionService {
     query: QueryTransactionDTO
   ): Promise<Transaction[]> {
     const q: FilterQuery<Transaction> = {
-      bankAccount: bankAccount,
+      bankAccount,
     };
 
     if (query.type) {
