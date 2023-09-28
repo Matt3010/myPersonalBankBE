@@ -25,7 +25,17 @@ export class AddTransictionDTO {
   @IsMongoId()
   @IsExistsInModel(TransactionTypeModel)
   transactionType: string;
-
+	
+  @IsOptional()
+  provider: string;
+  @IsOptional()
+  telephoneNumber: string;
+  @IsOptional()
+  rechargeAmount: string;
+  @IsOptional()
+  bankAccountTo: string;
+  @IsOptional()
+  amountExit: string;
   @IsOptional()
   description: string;
 }
