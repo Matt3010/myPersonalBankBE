@@ -1,6 +1,6 @@
 import { IsEmail, IsString, Matches, MinLength } from "class-validator";
-import { IsEqualPass } from "../../utils/auth/validator/isEqualPass.validator";
-import { IsEmailInModel } from "../../utils/auth/validator/isEmailExists.validator";
+import { IsEqualPass } from "../../utils/validator/isEqualPass.validator";
+import { IsEmailInModel } from "../../utils/validator/isEmailExists.validator";
 import { UserIdentity as UserIdentityModel } from "../../utils/auth/local/user-identity.model";
 
 export class AddUserDTO {

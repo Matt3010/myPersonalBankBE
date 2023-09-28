@@ -1,5 +1,5 @@
 import { IsEmail, IsString, Matches, MinLength } from "class-validator";
-import { IsDiffFromOld } from "../../utils/auth/validator/isDiffFromOldPass.validator";
+import { IsDiffFromOld } from "../../utils/validator/isDiffFromOldPass.validator";
 
 export class ResetPasswordDTO {
 @MinLength(8)

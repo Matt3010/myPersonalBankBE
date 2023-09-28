@@ -22,12 +22,12 @@ export const validateMatchPassword = (
         next();
       }
       else {
-        IpAddressService.view(req.ip, false);
+        IpAddressService.view(req.ip, false, 'change password error: old password not match with your typed password');
         throw new Error();
       }
       
     } catch (err) {
-      IpAddressService.view(req.ip, false);
+      IpAddressService.view(req.ip, false, 'change password error: old password is incorrect');
       res.status(400).json({ message: 'Old password is incorrect' });
     }
   };

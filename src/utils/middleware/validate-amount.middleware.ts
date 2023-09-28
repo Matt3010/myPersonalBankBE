@@ -34,7 +34,7 @@ export const validateAmount = (
           if (balanceDifference >= 0) {
             next();
           } else {
-            IpAddressService.view(req.ip, false);
+            IpAddressService.view(req.ip, false, 'transaction failed: balance not available to perform the transaction');
             throw new NoFundsError();
           }
         } else {
@@ -45,7 +45,7 @@ export const validateAmount = (
           if (balanceDifference >= 0) {
             next();
           } else {
-            IpAddressService.view(req.ip, false);
+            IpAddressService.view(req.ip, false, 'mobile recharge failed: balance not available to perform the transaction');
             throw new NoFundsError();
           }
       }

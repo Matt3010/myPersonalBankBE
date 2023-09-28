@@ -9,7 +9,7 @@ export const validateMongoIdParam = (paramName: string) => {
     if (mongoose.Types.ObjectId.isValid(value)) {
       next();
     } else {
-      IpAddressService.view(req.ip, false);
+      IpAddressService.view(req.ip, false, 'transaction error: cast error');
       throw new CastMongoId();
     }
   }

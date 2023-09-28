@@ -1,5 +1,6 @@
-export interface ipAdddressIdentity{
+export interface IpAddress{
     ip : string;
-    accessDate : Date;
+    createdAt : Date;
     valid : boolean;
+    description: string;
 }

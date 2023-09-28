@@ -1,14 +1,20 @@
-import { ipAdddressIdentity } from "./ip-address.entity";
-import { IpAdddress as IpAdddressModel } from "./ip-address.model";
+import { IpAddress } from "./ip-address.entity";
+import { IpAddress as IpAddressModel } from "./ip-address.model";
 
 export class IpAddressService {
 
-    async view(ip: string, completed: boolean) {
-        const IpAddress = await IpAdddressModel.create({
+    async view(ip: string, completed: boolean, description: string) {
+        const IpAddress = await IpAddressModel.create({
             ip,
-            valid: completed
+            valid: completed,
+            description
         });
         return IpAddress;
+    }
+
+    async get() : Promise<IpAddress[]> {
+        const list = await IpAddressModel.find();
+        return list;
     }
 }
 
