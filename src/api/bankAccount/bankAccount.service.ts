@@ -21,6 +21,11 @@ export class BankAccountService {
     await bankAccount.populate("user");
     return bankAccount;
   };
+
+    async delete(bankId: string): Promise<BankAccount>{
+    const bankAccount = await BankAccountModel.findByIdAndDelete(bankId)
+    return bankAccount!
+  }
   
   async isIbanUnique(iban: string): Promise<boolean> {
     const existingBankAccount = await BankAccountModel.findOne({ iban });

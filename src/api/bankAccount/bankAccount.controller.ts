@@ -18,3 +18,15 @@ export const add = async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 }
+
+
+
+export const deleteBankAccount = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const bankAccount = req.params.id!;
+      const deleted = await bankAccountService.delete(bankAccount);
+      if(deleted) res.send({message: "BankAccount deleted"})
+    } catch (err) {
+      next(err);
+    }
+  }
