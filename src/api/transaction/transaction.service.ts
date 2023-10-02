@@ -6,7 +6,7 @@ import { Transaction as TransactionModel } from "./transaction.model";
 
 export class TransactionService {
   async openTransaction(bankId: string): Promise<Transaction> {
-    return await this.add(
+    return this.add(
       bankId,
       "650c13eda7e99de7b7812ffd",
       0,
@@ -18,9 +18,7 @@ export class TransactionService {
     bankAccount: string,
     query: QueryTransactionDTO
   ): Promise<Transaction[]> {
-    const q: FilterQuery<Transaction> = {
-      bankAccount,
-    };
+    const q: FilterQuery<Transaction> = { bankAccount };
 
     if (query.type) {
       q.transactionType = query.type;
@@ -38,21 +36,25 @@ export class TransactionService {
       q.createdAt["$lte"] = new Date(query.endDate);
     }
 
-    const list = await TransactionModel.find(q).limit(query.number || 0).sort({createdAt: -1}).populate('transactionType');
+    const list = await TransactionModel.find(q)
+      .limit(query.number || 0)
+      .sort({ createdAt: -1 })
     return list;
   }
-  
-  async listAccounts(bankId: string): Promise<Transaction[]> {
-    return TransactionModel.find({ bankAccount: bankId }).sort({ createdAt: -1 });
-  }
 
-  async last(bankAccount: string): Promise<Transaction | null> {
-    return TransactionModel.findOne({ bankAccount }).sort({
+  async listAccounts(bankId: string): Promise<Transaction[]> {
+    return await TransactionModel.find({ bankAccount: bankId }).sort({
       createdAt: -1,
     });
   }
 
-  async getOne(id: string) : Promise<Transaction | null> {
+  async last(bankAccount: string): Promise<Transaction | null> {
+    return await TransactionModel.findOne({ bankAccount }).sort({
+      createdAt: -1,
+    });
+  }
+
+  async getOne(id: string): Promise<Transaction | null> {
     return await TransactionModel.findById(id);
   }
 
@@ -67,11 +69,10 @@ export class TransactionService {
     let balance = 0;
 
     if (transaction && lastTransactionRecord) {
-      if (transaction.type === "Uscita") {
-        balance = lastTransactionRecord.balance! - amount;
-      } else {
-        balance = lastTransactionRecord.balance! + amount;
-      }
+      balance =
+        transaction.type === "Uscita"
+          ? lastTransactionRecord.balance! - amount
+          : lastTransactionRecord.balance! + amount;
     }
 
     const newTransaction = await TransactionModel.create({
@@ -82,7 +83,7 @@ export class TransactionService {
       description,
     });
 
-    return newTransaction;
+    return await newTransaction.populate(['bankAccount', 'transactionType']);
   }
 
   async transfer(
@@ -91,8 +92,18 @@ export class TransactionService {
     amount: number,
     description: string
   ) {
-    await this.add(bankAccountSender, '650c1425a7e99de7b7813003', amount, description);
-    await this.add(bankAccountRecipient, '650c13f8a7e99de7b7812fff', amount, description);
+    await this.add(
+      bankAccountSender,
+      "650c1425a7e99de7b7813003",
+      amount,
+      description
+    );
+    await this.add(
+      bankAccountRecipient,
+      "650c13f8a7e99de7b7812fff",
+      amount,
+      description
+    );
   }
 }
 

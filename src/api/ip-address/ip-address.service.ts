@@ -3,7 +3,7 @@ import { IpAddress as IpAddressModel } from "./ip-address.model";
 
 export class IpAddressService {
 
-    async view(ip: string, completed: boolean, description: string) {
+    async add(ip: string, completed: boolean, description: string) {
         const IpAddress = await IpAddressModel.create({
             ip,
             valid: completed,

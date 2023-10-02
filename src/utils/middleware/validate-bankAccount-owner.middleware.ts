@@ -1,9 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-import { Document, Model } from "mongoose";
-import { NotFoundError } from "../../errors/not-found";
+import { NextFunction, Request, Response } from "express";
 import bankAccountService from "../../api/bankAccount/bankAccount.service";
 import IpAddressService from "../../api/ip-address/ip-address.service";
 import transactionService from "../../api/transaction/transaction.service";
+import { NotFoundError } from "../../errors/not-found";
 
 export const validateBankAccountOwner = (
   details: boolean,
@@ -11,22 +10,26 @@ export const validateBankAccountOwner = (
   paramName: string
 ) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    let value =
-      type === "params" ? req.params[paramName] : req[type][paramName];
-
     try {
-      if(details == true) {
+      let value = type === "params" ? req.params[paramName] : req[type][paramName];
+      
+      if (details) {
         const transaction = await transactionService.getOne(value);
         value = transaction?.bankAccount.toString();
-        console.log(value);
       }
+
       const bankAccounts = await bankAccountService.get(req.user?.id!);
       const isValueInBankAccounts = bankAccounts.some(account => account.id === value);
-      console.log(isValueInBankAccounts);
+
       if (!isValueInBankAccounts) {
-        IpAddressService.view(req.ip, false, 'transaction error: unable to execute transaction in an iban not attested to the user');
+        IpAddressService.add(
+          req.ip,
+          false,
+          'Transaction error: unable to execute transaction in an iban not attested to the user'
+        );
+
         throw new NotFoundError(
-          `You are not logged into this account (${value}), and you cannot perform this operation.`
+          "You are not logged into this account, and you cannot perform this operation."
         );
       }
 

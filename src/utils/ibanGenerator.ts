@@ -1,5 +1,3 @@
-import bankAccountService from "../api/bankAccount/bankAccount.service";
-
 export function generateUniqueITIban(): string {
   const countryCode = "IT";
   const controlDigits = "00";

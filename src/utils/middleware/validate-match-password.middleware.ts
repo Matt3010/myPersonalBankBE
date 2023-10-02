@@ -1,10 +1,9 @@
+import * as bcrypt from "bcrypt";
 import { NextFunction, Response } from "express";
+import IpAddressService from "../../api/ip-address/ip-address.service";
 import { ResetPasswordDTO } from "../../api/user/user.dto";
-import { NotFoundError } from "../../errors/not-found";
 import { UserIdentity as UserIdentityModel } from "../auth/local/user-identity.model";
 import { TypedRequest } from "../typed-request.interface";
-import * as bcrypt from "bcrypt";
-import IpAddressService from "../../api/ip-address/ip-address.service";
 
 export const validateMatchPassword = (
   type: string,
@@ -22,12 +21,12 @@ export const validateMatchPassword = (
         next();
       }
       else {
-        IpAddressService.view(req.ip, false, 'change password error: old password not match with your typed password');
+        IpAddressService.add(req.ip, false, 'Change password error: old password not match with your typed password');
         throw new Error();
       }
       
     } catch (err) {
-      IpAddressService.view(req.ip, false, 'change password error: old password is incorrect');
+      IpAddressService.add(req.ip, false, 'Change password error: old password is incorrect');
       res.status(400).json({ message: 'Old password is incorrect' });
     }
   };

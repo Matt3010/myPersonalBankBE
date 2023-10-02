@@ -1,9 +1,8 @@
-import { User as UserModel } from "./user.model";
+import * as bcrypt from 'bcrypt';
+import { UserExistsError } from "../../errors/user-exists";
 import { UserIdentity as UserIdentityModel } from "../../utils/auth/local/user-identity.model";
 import { User } from "./user.entity";
-import { UserExistsError } from "../../errors/user-exists";
-import * as bcrypt from 'bcrypt';
-import { BankAccount as BankAccountModel} from "../bankAccount/bankAccount.model";
+import { User as UserModel } from "./user.model";
 
 export class UserService {
 

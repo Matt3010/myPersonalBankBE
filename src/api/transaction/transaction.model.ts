@@ -19,5 +19,9 @@ transactionSchema.set("toJSON", {
   },
 });
 
+transactionSchema.pre(['find', 'findOne'], function (next) { 
+  this.populate(['bankAccount', 'transactionType']);
+  next();
+});
 
 export const Transaction = model<iTransiction>("Transaction", transactionSchema);

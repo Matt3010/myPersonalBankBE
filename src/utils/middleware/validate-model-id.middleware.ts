@@ -1,9 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { Document, Model } from "mongoose";
-import { NotFoundError } from "../../errors/not-found";
+import { NextFunction, Request, Response } from "express";
+import { Model } from "mongoose";
 import IpAddressService from "../../api/ip-address/ip-address.service";
-import transactionService from "../../api/transaction/transaction.service";
-import { BankAccount } from "../../api/bankAccount/bankAccount.model";
+import { NotFoundError } from "../../errors/not-found";
 
 export const validateModelID = (
   model: Model<any>,
@@ -11,26 +9,15 @@ export const validateModelID = (
   paramName: string
 ) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const value =
-      type === "params" ? req.params[paramName] : req[type][paramName];
-
     try {
-
-      let document = null;
-      console.log(model.modelName);
-      if(model.modelName !== 'Transaction') {
-        document = await model.findById(value);
-      }
-      else {
-        const transaction = await transactionService.getOne(value);
-        document = await BankAccount.findById(transaction?.bankAccount);
-      }
-     
+      const value = type === "params" ? req.params[paramName] : req[type][paramName];
+      
+      const document = await model.findById(value);
 
       if (!document) {
-        IpAddressService.view(req.ip, false, 'transaction error: iban not found in model');
+        IpAddressService.add(req.ip, false, 'Transaction error: Iban not found in model');
         throw new NotFoundError(
-          `Document with ID ${value} not found in the model.`
+          "Document with the specified value was not found in the model."
         );
       }
 

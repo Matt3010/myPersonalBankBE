@@ -15,8 +15,8 @@ router.get('/', list);
 router.post('/', addBankAccount);
 router.delete('/:id', validateId(BankAccountModel), deleteBankAccount);
 router.get('/:id/transactions', validate(QueryTransactionDTO, 'query'), validateId(BankAccountModel), listTransactions);
-router.post('/:id/transactions', validate(AddTransictionDTO), validateIdAndAmount("Add", BankAccountModel), add);
-router.post('/:id/mobileRecharge', validate(MobileRechargeDTO), validateIdAndAmount("Mobile", BankAccountModel), mobileRecharge);
-router.post('/:id/transfer', validate(TransferDTO), validateIdAndAmount("Add", BankAccountModel), transfer);
+router.post('/:id/transactions', validate(AddTransictionDTO), validateIdAndAmount('Transaction', BankAccountModel), add);
+router.post('/:id/mobileRecharge', validate(MobileRechargeDTO), validateIdAndAmount('Mobile', BankAccountModel), mobileRecharge);
+router.post('/:id/transfer', validate(TransferDTO), validateIdAndAmount('Transfer', BankAccountModel), transfer);
 
 export default router;

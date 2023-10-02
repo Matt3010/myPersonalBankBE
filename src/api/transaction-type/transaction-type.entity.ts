@@ -1,4 +1,4 @@
-    export interface TransactionType {
-        name: string;
-        type: string;
-    }
+export interface TransactionType {
+  name: string;
+  type: string;
+}

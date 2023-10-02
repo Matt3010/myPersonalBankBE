@@ -1,7 +1,6 @@
-import { TransactionType } from "../transaction-type/transaction-type.model";
+import { generateUniqueITIban } from "../../utils/ibanGenerator";
 import { BankAccount } from "./bankAccount.entity";
 import { BankAccount as BankAccountModel } from "./bankAccount.model";
-import { generateUniqueITIban } from "../../utils/ibanGenerator";
 
 export class BankAccountService {
 
