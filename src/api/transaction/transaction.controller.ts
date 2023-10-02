@@ -56,7 +56,7 @@ export const add = async (
       const bankAccountReciver = await bankAccountService.getByIban(req.body.bankAccount);
       const { amount, description} = req.body;
         await transactionService.transfer(bankAccountReciver.id!, bankAccountSender, amount, description);
-        res.send('Trasferimento eseguito con successo');
+        res.send({message:'Trasferimento eseguito con successo'});
     } catch (err) {
       next(err);
     }
