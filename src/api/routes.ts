@@ -9,7 +9,7 @@ import transactionRouter from './transaction/transaction.router';
 const router = Router();
 
 router.use(authRouter);
-router.use('/user', userRouter);
+router.use('/users', userRouter);
 router.use('/transactionTypes', transactionTypeRouter);
 router.use('/bankAccounts', bankAccountRouter);
 router.use('/ip-address', ipAddressRouter);
