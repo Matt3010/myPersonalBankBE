@@ -15,7 +15,8 @@ export const validateBankAccountOwner = (
       
       if (details) {
         const transaction = await transactionService.getOne(value);
-        value = transaction?.bankAccount.toString();
+        value = transaction?.bankAccount;
+        value = value.id;
       }
 
       const bankAccounts = await bankAccountService.get(req.user?.id!);
