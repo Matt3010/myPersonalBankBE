@@ -10,7 +10,7 @@ export function generateUniqueITIban(): string {
 
 function generateRandomAccountNumber(): string {
   let accountNumber = "";
-  for (let i = 0; i < 14; i++) {
+  for (let i = 0; i < 18; i++) {
     accountNumber += Math.floor(Math.random() * 10);
   }
   return accountNumber;
