@@ -6,7 +6,7 @@ import { User as UserModel } from "./user.model";
 
 export class UserService {
 
-  async add(user: User, credentials: {email: string, password: string}): Promise<User | { message : string }> {
+  async add(user: User, credentials: {email: string, password: string}): Promise<User | object> {
     const existingIdentity = await UserIdentityModel.findOne({'credentials.email': credentials.email});
     if (existingIdentity) {
       return {
