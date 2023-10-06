@@ -6,10 +6,12 @@ import { User as UserModel } from "./user.model";
 
 export class UserService {
 
-  async add(user: User, credentials: {email: string, password: string}): Promise<User> {
+  async add(user: User, credentials: {email: string, password: string}): Promise<User | { message : string }> {
     const existingIdentity = await UserIdentityModel.findOne({'credentials.email': credentials.email});
     if (existingIdentity) {
-      throw new UserExistsError();
+      return {
+        message: 'User with this email already exists.'
+      }
     }
     const hashedPassword = await bcrypt.hash(credentials.password, 10);
     const newUser = await UserModel.create(user);
